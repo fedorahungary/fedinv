@@ -14,4 +14,10 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+
+    # Swag subsite
+    url(r'^swag/', include('swag.urls')),
+
+    # Reports subsite
+    url(r'^report/', include('swag_reports.urls')),
 )
