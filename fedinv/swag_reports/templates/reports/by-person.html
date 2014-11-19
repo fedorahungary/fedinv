@@ -1,0 +1,18 @@
+<html>
+<head>
+<title>Fedora Inventory {{ region }} - Report by People</title>
+</head>
+<body>
+<ul>
+{% for p in person_list %}
+<li>{{ p.name }}<br />
+	<ul>
+	{% for sid, am in p.get_swag.items %}
+	<li>{{ am }} of {{ sid|swag_id_to_name}}</li>
+	{% endfor %}
+	</ul>
+</li>
+{% endfor %}
+</ul>
+</body>
+</html>

@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 
-from swag.models import SwagType
+from swag.models import SwagType, Person
 from swag_reports.models import Report
 
 def index(request):
@@ -14,6 +14,14 @@ def index(request):
 
 def by_team(request):
 	return HttpResponse('By Team')
+
+def by_people(request):
+	template = loader.get_template("reports/by-person.html")
+	context = RequestContext(request, {
+		'region': "EMEA",
+		'person_list': Person.objects.all(),
+	})
+	return HttpResponse(template.render(context))
 
 def all_swag(request):
 	num = SwagType.objects.count()
