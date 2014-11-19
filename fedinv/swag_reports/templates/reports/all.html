@@ -1,0 +1,12 @@
+<html>
+<head>
+<title>Fedora Inventory - {{ region }}</title>
+</head>
+<body>
+	<ul>
+		{% for p in obj_list %}
+			<li>We have <strong>{{ p.amount }}</strong> of '<strong>{{ p.name}}</strong>'</li>
+		{% endfor %}
+	</ul>
+</body>
+</html>

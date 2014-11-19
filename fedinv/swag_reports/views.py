@@ -1,17 +1,27 @@
 from django.http import HttpResponse
+from django.template import RequestContext, loader
 
 from swag.models import SwagType
+from swag_reports.models import Report
 
 def index(request):
-	return HttpResponse('Welcome to the Report section')
+	template = loader.get_template("reports/index.html")
+	context = RequestContext(request, {
+		'region': "EMEA",
+		'reports': Report.objects.all(),
+	})
+	return HttpResponse(template.render(context))
 
 def by_team(request):
 	return HttpResponse('By Team')
 
-def amount(request):
+def all_swag(request):
 	num = SwagType.objects.count()
 	resp = "There are %d Swags" % num
 	obj_set = SwagType.objects.all()
-	for obj in obj_set:
-		resp += "<br />%s: %d" %(obj.name, obj.amount)
-	return HttpResponse(resp)
+	template = loader.get_template("reports/all.html")
+	context = RequestContext(request, {
+		'region': "EMEA",
+		'obj_list': obj_set,
+	})
+	return HttpResponse(template.render(context))

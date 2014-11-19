@@ -1,0 +1,12 @@
+<html>
+<head>
+<title>Fedora Inventory {{ region }} - Reports</title>
+<body>
+	<p>The following reports are available</p>
+	<ul>
+	{% for r in reports %}
+		<li><a href='{{ r.url }}/'>{{ r.name }}</a></li>
+	{% endfor %}
+	</ul>
+</body>
+</html>
