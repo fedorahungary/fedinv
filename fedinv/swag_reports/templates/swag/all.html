@@ -1,0 +1,12 @@
+<html>
+<head>
+<title>Fedora Inventory {{ region }} - Swag management</title>
+</head>
+<body>
+<ul>
+{% for s in swag_list %}
+<li><a href="edit-{{ s.id }}">{{ s.name }}</a></li>
+{% endfor %}
+</ul>
+</body>
+</html>

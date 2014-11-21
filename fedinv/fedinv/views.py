@@ -8,9 +8,4 @@ def index(request):
 	})
 	return HttpResponse(t.render(c))
 
-def show_all_swag(request):
-	t = loader.get_template('swag/all.html')
-	c = RequestContext(request, {
-		'region': "EMEA",
-	})
-	return HttpResponse(t.render(c))
+
