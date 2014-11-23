@@ -29,7 +29,7 @@ class Person(models.Model):
 
 	@property
 	def d_held_swag(self):
-		return self.get_swag(self)
+		return self.get_swag()
 
 	def get_swag(self):
 		return json.loads(self.held_swag)

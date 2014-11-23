@@ -1,0 +1,17 @@
+<html>
+<head>
+<title>Fedora Inventory {{ region }} - Editing Swag</title>
+</head>
+<body>
+{% if plist %}
+<p>The following ambassadors have this item:</p>
+<ul>
+{% for p in plist %}
+<li>{{ p.name }} has {{ p|person_swag_amount:swag_id }} </li>
+{% endfor %}
+</ul>
+{% else %}
+<p>Nobody has this item!</p>
+{% endif %}
+</body>
+</html>
