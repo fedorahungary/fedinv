@@ -5,7 +5,9 @@ from swag import views
 urlpatterns = patterns('',
 	url(r'^$', views.index, name='index'),
 
-	url(r'manage-swag$', views.manage_swag, name='manage-swag'),
+	url(r'manage-swag/?$', views.manage_swag, name='manage-swag'),
+	url(r'manage-people/?$', views.manage_people, name='manage-people'),
 
-	url(r'edit-(?P<swag_id>\d+)/$', views.edit_swag, name='edit-swag'),
+	url(r'edit-(?P<swag_id>\d+)/?$', views.edit_swag, name='edit-swag'),
+	url(r'person-(?P<person_id>\d+)/?$', views.edit_person, name='edit-person'),
 )

@@ -1,0 +1,10 @@
+<html>
+<head>
+<title>Fedora Inventory -  {{ region }}</title>
+</head>
+<body>
+{% for p in ppl_list %}
+<p><a href='person-{{ p.id }}/'>{{ p.name }}</a></p>
+{% endfor %}
+</body>
+</html>

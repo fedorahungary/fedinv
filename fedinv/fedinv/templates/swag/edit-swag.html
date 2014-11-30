@@ -4,7 +4,7 @@
 </head>
 <body>
 {% if plist %}
-<p>The following ambassadors have this item:</p>
+<p>The following ambassadors have '{{ swag_id|swag_id_to_name }}':</p>
 <ul>
 {% for p in plist %}
 <li>{{ p.name }} has {{ p|person_swag_amount:swag_id }} </li>
