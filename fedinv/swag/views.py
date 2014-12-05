@@ -58,7 +58,12 @@ def confirmed_order(request, person_id, swag_id):
 	else:
 		form = OrderForm(request.POST)
 		if form.is_valid():
-			return HttpResponse("You want %d of swag" % form.cleaned_data['amount'])
+			p = Person.objects.get(id = int(person_id))
+			amount = form.cleaned_data['amount']
+			if (p.has_swag(swag_id, amount)):
+				return HttpResponse("You want %d of swag" % amount)
+			else:
+				return HttpResponse("%s hasn't got enough of that!" % p.name)
 		else:
 			return HttpResponse("ERROR: invalid data")
 	return HttpResponse("ERROR: POST required!")
