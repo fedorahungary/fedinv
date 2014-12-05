@@ -37,5 +37,14 @@ class Person(models.Model):
 	def set_swag(self, d_held):
 		held_swag = json.dumps(d_held)
 
+	def has_swag(self, swag_id, amount=1):
+		if (swag_id in self.d_held_swag):
+			if (int(self.d_held_swag[swag_id]) >= amount):
+				return True
+			else:
+				return False
+		else:
+			return False
+
 	def __unicode__(self):
 		return self.name
