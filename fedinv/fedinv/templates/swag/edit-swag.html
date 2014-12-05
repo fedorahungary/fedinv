@@ -7,7 +7,7 @@
 <p>The following ambassadors have '{{ swag_id|swag_id_to_name }}':</p>
 <ul>
 {% for p in plist %}
-<li>{{ p.name }} has {{ p|person_swag_amount:swag_id }} </li>
+<li>{{ p.name }} has {{ p|person_swag_amount:swag_id }} <a href="../order-{{p.id}}-{{swag_id}}/">[ORDER]</a></li>
 {% endfor %}
 </ul>
 {% else %}

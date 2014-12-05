@@ -3,6 +3,7 @@ from django.template import RequestContext, loader
 from django.template.defaulttags import register
 
 from swag.models import SwagType, Person
+from swag.forms import OrderForm
 
 @register.filter
 def person_swag_amount(p, swag_id):
@@ -41,6 +42,26 @@ def edit_person(request, person_id):
 	})
 	return HttpResponse(t.render(c))
 
+def order(request, person_id, swag_id):
+	t = loader.get_template('swag/order.html')
+	c = RequestContext(request, {
+		'region': "EMEA",
+		'person': Person.objects.get(id = int(person_id)),
+		'swag': SwagType.objects.get(id = int(swag_id)),
+		'form': OrderForm(),
+	})
+	return HttpResponse(t.render(c))
+
+def confirmed_order(request, person_id, swag_id):
+	if request.method == 'GET':
+		form = OrderForm()
+	else:
+		form = OrderForm(request.POST)
+		if form.is_valid():
+			return HttpResponse("You want %d of swag" % form.cleaned_data['amount'])
+		else:
+			return HttpResponse("ERROR: invalid data")
+	return HttpResponse("ERROR: POST required!")
 
 def edit_swag(request, swag_id):
 	# Find ambassadors who have $swag_id

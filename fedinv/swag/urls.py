@@ -10,4 +10,7 @@ urlpatterns = patterns('',
 
 	url(r'edit-(?P<swag_id>\d+)/?$', views.edit_swag, name='edit-swag'),
 	url(r'person-(?P<person_id>\d+)/?$', views.edit_person, name='edit-person'),
+
+	url(r'order-(?P<person_id>\d+)-(?P<swag_id>\d+)/?$', views.order, name='order'),
+	url(r'order-(?P<person_id>\d+)-(?P<swag_id>\d+)/confirm/?$', views.confirmed_order,name='confirmed-order'),
 )
