@@ -22,4 +22,7 @@ urlpatterns = patterns('',
 
     # Reports subsite
     url(r'^report/', include('swag_reports.urls')),
+
+    # Event subsite
+    url(r'^event/', include('event.urls')),
 )

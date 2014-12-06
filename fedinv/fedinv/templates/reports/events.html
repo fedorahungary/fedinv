@@ -1,0 +1,17 @@
+<html>
+<head>
+<title>Fedora Inventory {{ region }} - Event report</title>
+</head>
+<body>
+<ul>
+{% for e in events %}
+<li>
+{{ e.name }}<br/>
+<ul>
+{% autoescape off %}{{ e.data|parse_event_data_html }}{% endautoescape %}
+</ul>
+</li>
+{% endfor %}
+</ul>
+</body>
+</html>

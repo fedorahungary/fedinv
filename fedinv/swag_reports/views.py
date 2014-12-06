@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 
 from swag.models import SwagType, Person
+from event.models import InvEvent
 from swag_reports.models import Report
 
 def index(request):
@@ -20,6 +21,14 @@ def by_people(request):
 	context = RequestContext(request, {
 		'region': "EMEA",
 		'person_list': Person.objects.all(),
+	})
+	return HttpResponse(template.render(context))
+
+def list_event(request):
+	template = loader.get_template("reports/events.html")
+	context = RequestContext(request, {
+		'region': "EMEA",
+		'events': InvEvent.objects.all(),
 	})
 	return HttpResponse(template.render(context))
 

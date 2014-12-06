@@ -123,6 +123,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'swag',
     'swag_reports',
+    'event',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

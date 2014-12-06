@@ -24,6 +24,8 @@ class Person(models.Model):
 	id = models.IntegerField(primary_key = True)
 	name = models.CharField(max_length=5000)
 	team = models.IntegerField()
+	password = models.CharField(max_length=500)
+	email = models.CharField(max_length=500)
 	# serialized with JSON
 	held_swag = models.CharField(max_length=5000)
 
