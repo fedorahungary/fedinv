@@ -8,7 +8,7 @@
 {% csrf_token %}
 {{ form.as_p }}
 {% for s in allswag %}
-{{ s.name }} <input type="text" id="amount-{{s.id}}" value="0" /><br/ >
+{{ s.name }} <input type="number" id="amount-{{s.id}}" value="0" /><br/ >
 {% endfor %}
 <input type="submit" value="Add event!" />
 </form>
