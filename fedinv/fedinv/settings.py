@@ -1,5 +1,9 @@
 # Django settings for fedinv project.
 
+# FedInv Settings
+FEDINV_REGION = "EMEA"
+# END
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 

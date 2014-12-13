@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader
 from django.template.defaulttags import register
 
+from fedinv import settings
 from swag.models import SwagType, Person
 from swag.forms import OrderForm
 
@@ -14,14 +15,14 @@ def person_swag_amount(p, swag_id):
 def index(request):
 	t = loader.get_template('swag/index.html')
 	c = RequestContext(request, {
-		'region': "EMEA",
+		'region': settings.FEDINV_REGION,
 	})
 	return HttpResponse(t.render(c))
 
 def manage_swag(request):
 	t = loader.get_template('swag/all.html')
 	c = RequestContext(request, {
-		'region': "EMEA",
+		'region': settings.FEDINV_REGION,
 		'swag_list': SwagType.objects.all(),
 	})
 	return HttpResponse(t.render(c))
@@ -29,7 +30,7 @@ def manage_swag(request):
 def manage_people(request):
 	t = loader.get_template('swag/manage-people.html')
 	c = RequestContext(request, {
-		'region': "EMEA",
+		'region': settings.FEDINV_REGION,
 		'ppl_list': Person.objects.all(),
 	})
 	return HttpResponse(t.render(c))
@@ -37,7 +38,7 @@ def manage_people(request):
 def edit_person(request, person_id):
 	t = loader.get_template('swag/edit-person.html')
 	c = RequestContext(request, {
-		'region': "EMEA",
+		'region': settings.FEDINV_REGION,
 		'person': Person.objects.get(id = int(person_id)),
 	})
 	return HttpResponse(t.render(c))
@@ -45,7 +46,7 @@ def edit_person(request, person_id):
 def order(request, person_id, swag_id):
 	t = loader.get_template('swag/order.html')
 	c = RequestContext(request, {
-		'region': "EMEA",
+		'region': settings.FEDINV_REGION,
 		'person': Person.objects.get(id = int(person_id)),
 		'swag': SwagType.objects.get(id = int(swag_id)),
 		'form': OrderForm(),
@@ -77,7 +78,7 @@ def edit_swag(request, swag_id):
 
 	t = loader.get_template('swag/edit-swag.html')
 	c = RequestContext(request, {
-		'region': "EMEA",
+		'region': settings.FEDINV_REGION,
 		'swag_id': swag_id,
 		'plist': plist,
 	})
