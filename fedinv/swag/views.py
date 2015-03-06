@@ -1,9 +1,10 @@
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from django.template.defaulttags import register
+from django.core.mail import send_mail
 
 from fedinv import settings
-from swag.models import SwagType, Person
+from swag.models import SwagType, Person, swag_id_to_name
 from swag.forms import OrderForm
 
 @register.filter
@@ -62,6 +63,14 @@ def confirmed_order(request, person_id, swag_id):
 			p = Person.objects.get(id = int(person_id))
 			amount = form.cleaned_data['amount']
 			if (p.has_swag(swag_id, amount)):
+				body = settings.FEDINV_ORDER_BODY %{
+					"to": p.name,
+					"from": "FROM",
+					"amount": amount,
+					"swag": swag_id_to_name(swag_id)}
+				send_mail(settings.FEDINV_ORDER_SUBJECT % {"from": "FROM"},
+				body,
+				'levex@linux.com', [p.email])
 				return HttpResponse("You want %d of swag" % amount)
 			else:
 				return HttpResponse("%s hasn't got enough of that!" % p.name)

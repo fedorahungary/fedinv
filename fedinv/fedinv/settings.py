@@ -2,6 +2,24 @@
 
 # FedInv Settings
 FEDINV_REGION = "EMEA"
+FEDINV_ORDER_SUBJECT = "[FedInv] Incoming order from %(from)s"
+FEDINV_ORDER_BODY = "Hello %(to)s, \n\
+\n\
+%(from)s has ordered %(amount)s of \"%(swag)s\" from you.\n\
+\n\
+Please login to FedInv to manage this request!\n\
+\n\
+Thanks,\n\
+FedInv"
+# END
+
+# SMTP Settings
+import fedinv.email_settings.gmail as s
+EMAIL_HOST = s.EMAIL_HOST
+EMAIL_USE_TLS = s.EMAIL_USE_TLS
+EMAIL_PORT = s.EMAIL_PORT
+EMAIL_HOST_USER = s.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = s.EMAIL_HOST_PASSWORD
 # END
 
 DEBUG = True
