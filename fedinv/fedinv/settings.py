@@ -2,6 +2,7 @@
 
 # FedInv Settings
 FEDINV_REGION = "EMEA"
+FEDINV_SEND_EMAILS = True
 FEDINV_ORDER_SUBJECT = "[FedInv] Incoming order from %(from)s"
 FEDINV_ORDER_BODY = "Hello %(to)s, \n\
 \n\

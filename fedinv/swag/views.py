@@ -65,24 +65,25 @@ def confirmed_order(request, person_id, swag_id):
 			p = Person.objects.get(id = int(person_id))
 			amount = form.cleaned_data['amount']
 			if (p.has_swag(swag_id, amount)):
-				# Send the order to the person
-				body = settings.FEDINV_ORDER_BODY %{
-					"to": p.name,
-					"from": me.name,
-					"amount": amount,
-					"swag": swag_id_to_name(swag_id)}
-				send_mail(settings.FEDINV_ORDER_SUBJECT % {"from": me.name},
-				body,
-				'levex+fedinv@linux.com', [p.email])
-				# Send confirmation to the buyer
-				body = settings.FEDINV_ORDER_CONFIRMATION_BODY %{
-					"to":  me.name,
-					"from": p.name,
-					"amount": amount,
-					"swag": swag_id_to_name(swag_id)}
-				send_mail(settings.FEDINV_ORDER_CONFIRMATION_SUBJECT %{
-					"from": p.name}, body, 'levex+fedinv@linux.com',
-					[me.email])
+				if settings.FEDINV_SEND_EMAILS == True:
+					# Send the order to the person
+					body = settings.FEDINV_ORDER_BODY %{
+						"to": p.name,
+						"from": me.name,
+						"amount": amount,
+						"swag": swag_id_to_name(swag_id)}
+					send_mail(settings.FEDINV_ORDER_SUBJECT % {"from": me.name},
+					body,
+					'levex+fedinv@linux.com', [p.email])
+					# Send confirmation to the buyer
+					body = settings.FEDINV_ORDER_CONFIRMATION_BODY %{
+						"to":  me.name,
+						"from": p.name,
+						"amount": amount,
+						"swag": swag_id_to_name(swag_id)}
+					send_mail(settings.FEDINV_ORDER_CONFIRMATION_SUBJECT %{
+						"from": p.name}, body, 'levex+fedinv@linux.com',
+						[me.email])
 				return HttpResponse("You want %d of swag" % amount)
 			else:
 				return HttpResponse("%s hasn't got enough of that!" % p.name)
