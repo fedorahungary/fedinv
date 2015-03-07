@@ -11,6 +11,19 @@ Please login to FedInv to manage this request!\n\
 \n\
 Thanks,\n\
 FedInv"
+FEDINV_ORDER_CONFIRMATION_SUBJECT = "[FedInv] Order confirmation"
+FEDINV_ORDER_CONFIRMATION_BODY = "Hello %(to)s, \n\
+\n\
+You have ordered %(amount)d of \"%(swag)s\" from %(from)s,\n\
+\n\
+This mail serves as a confirmation that your order has been\n\
+sent to %(from)s\n\
+\n\
+Please login to FedInv to cancel or to modify this request!\n\
+\n\
+Thanks,\n\
+FedInv"
+
 # END
 
 # SMTP Settings

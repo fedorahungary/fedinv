@@ -4,6 +4,7 @@ from django.template.defaulttags import register
 from django.core.mail import send_mail
 
 from fedinv import settings
+from people.fedinv import get_current_user
 from swag.models import SwagType, Person, swag_id_to_name
 from swag.forms import OrderForm
 
@@ -55,6 +56,7 @@ def order(request, person_id, swag_id):
 	return HttpResponse(t.render(c))
 
 def confirmed_order(request, person_id, swag_id):
+	me = get_current_user()
 	if request.method == 'GET':
 		form = OrderForm()
 	else:
@@ -63,14 +65,24 @@ def confirmed_order(request, person_id, swag_id):
 			p = Person.objects.get(id = int(person_id))
 			amount = form.cleaned_data['amount']
 			if (p.has_swag(swag_id, amount)):
+				# Send the order to the person
 				body = settings.FEDINV_ORDER_BODY %{
 					"to": p.name,
-					"from": "FROM",
+					"from": me.name,
 					"amount": amount,
 					"swag": swag_id_to_name(swag_id)}
-				send_mail(settings.FEDINV_ORDER_SUBJECT % {"from": "FROM"},
+				send_mail(settings.FEDINV_ORDER_SUBJECT % {"from": me.name},
 				body,
-				'levex@linux.com', [p.email])
+				'levex+fedinv@linux.com', [p.email])
+				# Send confirmation to the buyer
+				body = settings.FEDINV_ORDER_CONFIRMATION_BODY %{
+					"to":  me.name,
+					"from": p.name,
+					"amount": amount,
+					"swag": swag_id_to_name(swag_id)}
+				send_mail(settings.FEDINV_ORDER_CONFIRMATION_SUBJECT %{
+					"from": p.name}, body, 'levex+fedinv@linux.com',
+					[me.email])
 				return HttpResponse("You want %d of swag" % amount)
 			else:
 				return HttpResponse("%s hasn't got enough of that!" % p.name)
