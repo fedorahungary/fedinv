@@ -73,8 +73,7 @@ def confirmed_order(request, person_id, swag_id):
 						"amount": amount,
 						"swag": swag_id_to_name(swag_id)}
 					send_mail(settings.FEDINV_ORDER_SUBJECT % {"from": me.name},
-					body,
-					'levex+fedinv@linux.com', [p.email])
+					body, settings.FEDINV_EMAIL_FROM, [p.email])
 					# Send confirmation to the buyer
 					body = settings.FEDINV_ORDER_CONFIRMATION_BODY %{
 						"to":  me.name,
@@ -82,7 +81,7 @@ def confirmed_order(request, person_id, swag_id):
 						"amount": amount,
 						"swag": swag_id_to_name(swag_id)}
 					send_mail(settings.FEDINV_ORDER_CONFIRMATION_SUBJECT %{
-						"from": p.name}, body, 'levex+fedinv@linux.com',
+						"from": p.name}, body, settings.FEDINV_EMAIL_FROM,
 						[me.email])
 				return HttpResponse("You want %d of swag" % amount)
 			else:
