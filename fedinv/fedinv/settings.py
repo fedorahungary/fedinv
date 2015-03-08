@@ -5,26 +5,26 @@ FEDINV_REGION = "EMEA"
 FEDINV_SEND_EMAILS = True
 FEDINV_EMAIL_FROM = "levex+fedinv@linux.com"
 FEDINV_ORDER_SUBJECT = "[FedInv] Incoming order from %(from)s"
-FEDINV_ORDER_BODY = "Hello %(to)s, \n\
-\n\
-%(from)s has ordered %(amount)s of \"%(swag)s\" from you.\n\
-\n\
-Please login to FedInv to manage this request!\n\
-\n\
-Thanks,\n\
-FedInv"
+FEDINV_ORDER_BODY = """Hello %(to)s,
+
+%(from)s has ordered %(amount)s of \"%(swag)s\" from you.
+
+Please login to FedInv to manage this request!
+
+Thanks,
+FedInv"""
 FEDINV_ORDER_CONFIRMATION_SUBJECT = "[FedInv] Order confirmation"
-FEDINV_ORDER_CONFIRMATION_BODY = "Hello %(to)s, \n\
-\n\
-You have ordered %(amount)d of \"%(swag)s\" from %(from)s,\n\
-\n\
-This mail serves as a confirmation that your order has been\n\
-sent to %(from)s\n\
-\n\
-Please login to FedInv to cancel or to modify this request!\n\
-\n\
-Thanks,\n\
-FedInv"
+FEDINV_ORDER_CONFIRMATION_BODY = """Hello %(to)s,
+
+You have ordered %(amount)d of \"%(swag)s\" from %(from)s,
+
+This mail serves as a confirmation that your order has been
+sent to %(from)s
+
+Please login to FedInv to cancel or to modify this request!
+
+Thanks,
+FedInv"""
 
 # END
 
