@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 
 from fedinv import settings
 from people.fedinv import get_current_user
-from swag.models import SwagType, Person, swag_id_to_name
+from swag.models import SwagType, Person, Order, swag_id_to_name
 from swag.forms import OrderForm
 
 @register.filter
@@ -64,28 +64,13 @@ def confirmed_order(request, person_id, swag_id):
 		if form.is_valid():
 			p = Person.objects.get(id = int(person_id))
 			amount = form.cleaned_data['amount']
-			if (p.has_swag(swag_id, amount)):
-				if settings.FEDINV_SEND_EMAILS == True:
-					# Send the order to the person
-					body = settings.FEDINV_ORDER_BODY %{
-						"to": p.name,
-						"from": me.name,
-						"amount": amount,
-						"swag": swag_id_to_name(swag_id)}
-					send_mail(settings.FEDINV_ORDER_SUBJECT % {"from": me.name},
-					body, settings.FEDINV_EMAIL_FROM, [p.email])
-					# Send confirmation to the buyer
-					body = settings.FEDINV_ORDER_CONFIRMATION_BODY %{
-						"to":  me.name,
-						"from": p.name,
-						"amount": amount,
-						"swag": swag_id_to_name(swag_id)}
-					send_mail(settings.FEDINV_ORDER_CONFIRMATION_SUBJECT %{
-						"from": p.name}, body, settings.FEDINV_EMAIL_FROM,
-						[me.email])
-				return HttpResponse("You want %d of swag" % amount)
+			order = Order(from_id = me.id, to_id = person_id, swag_id = swag_id, amount = amount)
+			order.save()
+			if order.is_valid():
+				order.send()
 			else:
-				return HttpResponse("%s hasn't got enough of that!" % p.name)
+				return HttpResponse("Order couldn't be sent: %s" % order.error_reason)
+			return HttpResponse("Your order has been sent: %s" % order.dump())
 		else:
 			return HttpResponse("ERROR: invalid data")
 	return HttpResponse("ERROR: POST required!")
