@@ -34,8 +34,6 @@ def list_event(request):
 	return HttpResponse(template.render(context))
 
 def all_swag(request):
-	num = SwagType.objects.count()
-	resp = "There are %d Swags" % num
 	obj_set = SwagType.objects.all()
 	template = loader.get_template("reports/all.html")
 	context = RequestContext(request, {
