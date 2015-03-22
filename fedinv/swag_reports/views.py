@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 
-from fedinv import settings
+from fedinv import settings, fedinv
 from swag.models import SwagType, Person
 from event.models import InvEvent
 from swag_reports.models import Report
@@ -38,12 +38,14 @@ def all_swag(request):
 	users = Person.objects.all()
 	# Ideally, we shouldn't recount on every request,
 	# We need some caching...
-	for s in obj_set:
-		s.old_amount = s.amount
-		s.amount = 0
-		for p in users:
-			s.amount += p.get_swag_amount(s.id)
-		s.save()
+	if fedinv.swag_cache_valid == False:
+		for s in obj_set:
+			s.old_amount = s.amount
+			s.amount = 0
+			for p in users:
+				s.amount += p.get_swag_amount(s.id)
+			s.save()
+	fedinv.swag_cache_valid = True
 
 	template = loader.get_template("reports/all.html")
 	context = RequestContext(request, {
