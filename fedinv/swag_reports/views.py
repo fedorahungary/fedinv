@@ -35,6 +35,16 @@ def list_event(request):
 
 def all_swag(request):
 	obj_set = SwagType.objects.all()
+	users = Person.objects.all()
+	# Ideally, we shouldn't recount on every request,
+	# We need some caching...
+	for s in obj_set:
+		s.old_amount = s.amount
+		s.amount = 0
+		for p in users:
+			s.amount += p.get_swag_amount(s.id)
+		s.save()
+
 	template = loader.get_template("reports/all.html")
 	context = RequestContext(request, {
 		'region': settings.FEDINV_REGION,

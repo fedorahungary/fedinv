@@ -126,5 +126,11 @@ class Person(models.Model):
 		else:
 			return False
 
+	def get_swag_amount(self, swag_id):
+		if self.has_swag(swag_id) == False:
+			return 0
+		else:
+			return int(self.d_held_swag[unicode(swag_id)])
+
 	def __unicode__(self):
 		return self.name
