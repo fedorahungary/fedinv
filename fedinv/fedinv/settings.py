@@ -157,6 +157,7 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django_openid_auth',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -169,7 +170,21 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 )
 
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+# For OpenID, we need PickleSerializer
+# Original: SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+
+# Authentication backends
+AUTHENTICATION_BACKENDS = (
+	'django.contrib.auth.backends.ModelBackend',
+	'django_openid_auth.auth.OpenIDBackend',
+)
+
+OPENID_CREATE_USERS = True
+OPENID_UPDATE_DETAILS_FROM_SREG = True
+LOGIN_URL = '/openid/login'
+LOGIN_REDIRECT_URL = '/'
+OPENID_SSO_SERVER_URL = 'id.fedoraproject.org'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

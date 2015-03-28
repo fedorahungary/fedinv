@@ -14,6 +14,9 @@ urlpatterns = patterns('',
 
     url(r'^$', 'fedinv.views.index', name='index'),
 
+    url(r'^openid/', include('django_openid_auth.urls')),
+    url(r'^logout/$', 'fedinv.views.logout_me'),
+
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 
