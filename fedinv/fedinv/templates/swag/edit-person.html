@@ -39,7 +39,11 @@
         <div class="starter-template">
 		<h1>{{ person.name }}</h1>
 		<p>Team: #{{ person.id }}</p>
-		<p>Swag (JSON): {{person.held_swag }}</p>
+		<!--<p>Swag (JSON): {{person.held_swag }}</p>-->
+		{% for sw in person.d_held_swag %}
+		<p>{{ sw|swag_id_to_name }}: {{person|person_swag_amount:sw}} pcs <a
+		href="../../order-{{person.id}}-{{sw}}/">[ORDER]</a></p>
+		{% endfor  %}
 	</div></div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
