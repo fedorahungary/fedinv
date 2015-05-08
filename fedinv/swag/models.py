@@ -40,7 +40,7 @@ class Order(models.Model):
 			self.error_reason = "Non-existant buyer"
 			return False
 		if self.amount <= 0:
-			self.error_reason = "Cannot order zero"
+			self.error_reason = "Cannot order zero or less"
 			return False
 		if self.p_to.has_swag(int(self.swag_id), int(self.amount)) == False:
 			self.error_reason = "Buyer doesn't have enough items"
