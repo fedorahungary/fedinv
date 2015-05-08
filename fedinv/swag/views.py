@@ -10,8 +10,8 @@ from swag.forms import OrderForm
 
 @register.filter
 def person_swag_amount(p, swag_id):
-	if swag_id in p.d_held_swag:
-		return p.d_held_swag[swag_id]
+	if unicode(swag_id) in p.d_held_swag:
+		return p.d_held_swag[unicode(swag_id)]
 	return "0"
 
 def index(request):
