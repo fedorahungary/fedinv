@@ -38,7 +38,8 @@
 
     <div class="container">
         <div class="starter-template">
- 		<p>Ordering some {{ swag.name }} from {{ person.name }}</p>
+ 		<p>Ordering some {{ swag.name }} from {{ person.name }}, they have
+		{{ person|person_swag_amount:swag.id }} pcs available</p>
 
 		<form action="./confirm" method="post" id='input_form'>
 			{% csrf_token %}
